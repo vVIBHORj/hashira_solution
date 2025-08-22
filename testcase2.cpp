@@ -3,8 +3,10 @@
 #include <cmath>
 #include <string>
 
+using namespace std;
+
 // Function to convert a string number from base `b` to decimal (long double for big numbers)
-long double baseToDecimal(const std::string& value, int base) {
+long double baseToDecimal(const string& value, int base) {
     long double result = 0;
     long double power = 1;
     for (int i = value.size() - 1; i >= 0; i--) {
@@ -23,12 +25,12 @@ long double baseToDecimal(const std::string& value, int base) {
 
 // Lagrange interpolation to find polynomial coefficients
 // Returns coefficients from degree 0 (constant) to degree n (highest)
-std::vector<long double> lagrangeInterpolation(const std::vector<long double>& x, const std::vector<long double>& y) {
+vector<long double> lagrangeInterpolation(const vector<long double>& x, const vector<long double>& y) {
     int n = x.size();
-    std::vector<long double> coeffs(n, 0.0);
+    vector<long double> coeffs(n, 0.0);
 
     for(int i = 0; i < n; ++i) {
-        std::vector<long double> li(n, 0.0);
+        vector<long double> li(n, 0.0);
         li[0] = 1.0;
 
         long double denom = 1.0;
@@ -54,9 +56,9 @@ std::vector<long double> lagrangeInterpolation(const std::vector<long double>& x
 
 int main() {
     // X values for the second test case
-    std::vector<long double> x = {1,2,3,4,5,6,7,8,9,10};
+    vector<long double> x = {1,2,3,4,5,6,7,8,9,10};
     // Base and encoded y values (from the problem)
-    std::vector<std::pair<int,std::string>> encodedY = {
+    vector<pair<int,string>> encodedY = {
         {6, "13444211440455345511"},
         {15,"aed7015a346d63"},
         {15,"6aeeb69631c227c"},
@@ -69,7 +71,7 @@ int main() {
         {7,"1101613130313526312514143"}
     };
 
-    std::vector<long double> y;
+    vector<long double> y;
     for (auto& p : encodedY) {
         int base = p.first;
         y.push_back(baseToDecimal(p.second, base));
@@ -77,16 +79,18 @@ int main() {
 
     // Polynomial degree is 6; need 7 points. Use first 7 points for interpolation
     int degree = 6;
-    std::vector<long double> x_sub(x.begin(), x.begin() + degree + 1);
-    std::vector<long double> y_sub(y.begin(), y.begin() + degree + 1);
+    vector<long double> x_sub(x.begin(), x.begin() + degree + 1);
+    vector<long double> y_sub(y.begin(), y.begin() + degree + 1);
 
-    std::vector<long double> coeffs = lagrangeInterpolation(x_sub, y_sub);
+    vector<long double> coeffs = lagrangeInterpolation(x_sub, y_sub);
 
-    std::cout << "Polynomial coefficients (from degree 0 to degree " << degree << "):\n";
+    cout << "Polynomial coefficients (from degree 0 to degree " << degree << "):\n";
     for(size_t i = 0; i < coeffs.size(); ++i) {
-        std::cout << "c" << i << " = " << coeffs[i] << "\n";
+        cout << "c" << i << " = " << coeffs[i] << "\n";
     }
 
     return 0;
 }
+
+
 
