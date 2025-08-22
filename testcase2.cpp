@@ -43,7 +43,7 @@ std::vector<long double> lagrangeInterpolation(const std::vector<long double>& x
             for(int d = n-1; d > 0; --d){
                 li[d] = li[d] - li[d-1] * x[j];
             }
-            li[0] = li * (-x[j]);
+            li[0] = li[0] * (-x[j]);
         }
         for(int d = 0; d < n; ++d) {
             coeffs[d] += y[i] * li[d] / denom;
@@ -89,3 +89,4 @@ int main() {
 
     return 0;
 }
+
